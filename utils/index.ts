@@ -12,10 +12,14 @@ export const getLastBurnTxHash = async (
 ): Promise<string> => {
     const event = await contract.filters.Transfer(address, burnAddress);
     const id = event.topics[0];
+   
+    const _toBlock = await provider.getBlockNumber();
+    const _fromBlock = _toBlock - 100000;
 
     const log: Array<any> = await provider.getLogs({
-        fromBlock: 9800498,
-        toBlock: await provider.getBlockNumber(),
+
+        fromBlock: _fromBlock,
+        toBlock: _toBlock,
         topics: [
             id,
             ethers.utils.hexZeroPad(address, 32),
@@ -23,6 +27,6 @@ export const getLastBurnTxHash = async (
         ],
     });
 
-    const lastBurnTransactionHash = log[0].transactionHash;
+    const lastBurnTransactionHash = log[log.length - 1].transactionHash;
     return lastBurnTransactionHash;
 };

@@ -29,6 +29,6 @@ describe("isBurnTxClaimable", () => {
             burnTxHash,
             ERC20_TRANSFER_EVENT_SIG,
         );
-        expect(result).toBe(true);
+        expect(result).toBe(false);
     });
 });
