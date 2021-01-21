@@ -16,27 +16,29 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
     const [address, setAddress] = useState<string>("");
     const [result, setResult] = useState<boolean | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
+    const [ value, setValue ] = useState<string>("");
 
     const handleClick = async (event): Promise<void> => {
         event.preventDefault();
         setLoading(true);
-        const burnTxHash = await getLastBurnTxHash(address);
+        const transactionValues = await getLastBurnTxHash(address);
         const _result = await isBurnTxClaimable(
             rootChainProvider,
             provider,
             rootChainContractAddress,
-            burnTxHash,
+            transactionValues[0],
             ERC20_TRANSFER_EVENT_SIG,
         );
         setLoading(false);
         setResult(_result);
+        setValue((+transactionValues[1] / 1000000).toFixed(6));
     };
     const displayMessage = (): JSX.Element => {
         if (result === true) {
-            return <h5>Funds are available for withdrawal</h5>;
+            return <h5>Your withdrawal of {value} USDC is now available</h5>;
         }
         if (result === false) {
-            return <h5>Funds are not yet available or have been withdrawn</h5>;
+            return <h5>Your withdrawal of {value} USDC is not yet available or has been withdrawn</h5>;
         }
         return <h5 />;
     };
