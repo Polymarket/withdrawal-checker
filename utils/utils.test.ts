@@ -1,36 +1,13 @@
-import {
-    isBurnTxClaimable,
-    ERC20_TRANSFER_EVENT_SIG,
-} from "@tomfrench/matic-proofs";
-import { getLastBurnTxHash } from ".";
-import {
-    provider,
-    rootChainContractAddress,
-    rootChainProvider,
-} from "./constants";
+
+import { USDCFormat } from ".";
 
 
-describe("getLastBurnTxHash", () => {
-    test("should get the last burn tx for a given address", async function () {
-        const address = "0x822276EB1df687f4faB5D29adA0d30590C510311";
-        const burnTxHash =
-        "0x0f7373fb7424b800b410646c71ef9bab95cc2b3c9440650e48de081fc5da0419";
-        const burnTx = await getLastBurnTxHash(address);
-        expect(burnTxHash).toBe(burnTx);
+
+describe("USDCFormat", () => {
+    test("should return a number formated for display from a given number string", async function () {
+        const num = "1000000000000";
+        const displayNum = "$1,000,000.000000";
+        expect(USDCFormat(num)).toBe(displayNum);
     });
 });
 
-describe("isBurnTxClaimable", () => {
-    test("should determine if withdrawal funds are available to be claimed for a given txHash", async function () {
-        const burnTxHash =
-            "0x0f7373fb7424b800b410646c71ef9bab95cc2b3c9440650e48de081fc5da0419";
-        const result = await isBurnTxClaimable(
-            rootChainProvider,
-            provider,
-            rootChainContractAddress,
-            burnTxHash,
-            ERC20_TRANSFER_EVENT_SIG,
-        );
-        expect(result).toBe(false);
-    });
-});

@@ -5,7 +5,8 @@ import {
     ERC20_TRANSFER_EVENT_SIG,
 } from "@tomfrench/matic-proofs";
 import styles from "../styles/Home.module.css";
-import { getLastBurnTxHash } from "../utils";
+import { getLastBurnTxHash,
+         USDCFormat } from "../utils";
 import {
     rootChainContractAddress,
     rootChainProvider,
@@ -17,9 +18,13 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
     const [result, setResult] = useState<boolean | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
     const [ value, setValue ] = useState<string>("");
-
+    const [errorMessage, setErrorMessage ] = useState<string>("");
+ 
     const handleClick = async (event): Promise<void> => {
+       try {
         event.preventDefault();
+        setResult(undefined);
+        setErrorMessage("");
         setLoading(true);
         const transactionValues = await getLastBurnTxHash(address);
         const _result = await isBurnTxClaimable(
@@ -31,7 +36,11 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
         );
         setLoading(false);
         setResult(_result);
-        setValue((+transactionValues[1] / 1000000).toFixed(6));
+        setValue(USDCFormat(transactionValues[1]));
+       } catch(error) {
+         setErrorMessage(error.message);
+       }
+   
     };
     const displayMessage = (): JSX.Element => {
         if (result === true) {
@@ -76,6 +85,12 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                         >
                             {loading && <h5>Loading</h5>}
                             {displayMessage()}
+                        </div>
+                        <div
+                            style={{ textAlign: "center", paddingTop: "15px" }}
+                        >
+                            {errorMessage && <h5>{errorMessage}</h5>}
+                         
                         </div>
                     </form>
                 </div>
