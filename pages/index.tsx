@@ -4,7 +4,7 @@ import {
     isBurnTxClaimable,
     ERC20_TRANSFER_EVENT_SIG,
 } from "@tomfrench/matic-proofs";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Home.module.scss";
 import { getLastBurnTxHash,
          USDCFormat } from "../utils";
 import {
@@ -27,7 +27,7 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
         setErrorMessage("");
         setLoading(true);
         const transactionValues = await getLastBurnTxHash(address);
-        const _result = await isBurnTxClaimable(
+        const result = await isBurnTxClaimable(
             rootChainProvider,
             provider,
             rootChainContractAddress,
@@ -35,7 +35,7 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
             ERC20_TRANSFER_EVENT_SIG,
         );
         setLoading(false);
-        setResult(_result);
+        setResult(result);
         setValue(USDCFormat(transactionValues[1]));
        } catch(error) {
          setErrorMessage(error.message);
@@ -44,16 +44,16 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
     };
     const displayMessage = (): JSX.Element => {
         if (result === true) {
-            return <h5>Your withdrawal of {value} USDC is now available</h5>;
+            return <p className={styles.description}>Your withdrawal of {value} USDC is now available</p>;
         }
         if (result === false) {
-            return <h5>Your withdrawal of {value} USDC is not yet available or has been withdrawn</h5>;
+            return <p className={styles.description}>Your withdrawal of {value} USDC is not yet available or has been withdrawn</p>;
         }
-        return <h5 />;
+        return null;
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.App_Container}>
             <Head>
                 <title>PM Withdrawal Checker</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -63,31 +63,31 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                 <h1 className={styles.title}>Withdrawal checkpoint checker</h1>
 
                 <div className={styles.grid}>
-                    <form>
+                    <form className={styles.form}>
                         <input
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="Enter address"
-                            style={{ width: "350px", height: "30px" }}
+                            className={styles.input}
                         />
                         <div
-                            style={{ textAlign: "center", paddingTop: "15px" }}
+                            className={styles.grid}
                         >
                             <button
                                 onClick={handleClick}
-                                style={{ height: "30px", width: "60px" }}
+                                className={styles.button}
                             >
                                 Submit
                             </button>
                         </div>
                         <div
-                            style={{ textAlign: "center", paddingTop: "15px" }}
+                            className={styles.grid}
                         >
                             {loading && <h5>Loading</h5>}
                             {displayMessage()}
                         </div>
                         <div
-                            style={{ textAlign: "center", paddingTop: "15px" }}
+                            className={styles.grid}
                         >
                             {errorMessage && <h5>{errorMessage}</h5>}
                          

@@ -1,5 +1,5 @@
-import {  BigNumber, ethers } from "ethers";
-import { contract, provider } from "./constants";
+import { ethers } from "ethers";
+import { provider } from "./constants";
 import UsdcAbi from "./abi/USDC.json";
 
 import {ERC20_TRANSFER_EVENT_SIG} from "@tomfrench/matic-proofs";
@@ -15,13 +15,13 @@ export const getLastBurnTxHash = async (
 ): Promise<Array<string>> => {
   
    
-    const _toBlock = await provider.getBlockNumber();
-    const _fromBlock = _toBlock - 100000;
+    const toBlock = await provider.getBlockNumber();
+    const fromBlock = toBlock - 100000;
 
     const logs: Array<any> = await provider.getLogs({
 
-        fromBlock: _fromBlock,
-        toBlock: _toBlock,
+        fromBlock,
+        toBlock,
         topics: [
             ERC20_TRANSFER_EVENT_SIG,
             ethers.utils.hexZeroPad(address, 32),
@@ -29,7 +29,6 @@ export const getLastBurnTxHash = async (
         ],
     });
   
-    console.log(logs);
     const iface = new ethers.utils.Interface(UsdcAbi )
     const decodedData = iface.decodeEventLog(ERC20_TRANSFER_EVENT_SIG, logs[logs.length - 1].data);
     const value = decodedData.value.toString();
