@@ -5,8 +5,7 @@ import {
     ERC20_TRANSFER_EVENT_SIG,
 } from "@tomfrench/matic-proofs";
 import styles from "../styles/Home.module.scss";
-import { getLastBurnTxHash,
-         USDCFormat } from "../utils";
+import { getLastBurnTxHash, USDCFormat } from "../utils";
 import {
     rootChainContractAddress,
     rootChainProvider,
@@ -15,39 +14,51 @@ import {
 
 const CheckpointChecker: React.FC = (): JSX.Element => {
     const [address, setAddress] = useState<string>("");
-    const [result, setResult] = useState<boolean | undefined>(undefined);
+    const [isTxClaimable, setIsTxClaimable] = useState<boolean | undefined>(
+        undefined,
+    );
     const [loading, setLoading] = useState<boolean>(false);
-    const [ value, setValue ] = useState<string>("");
-    const [errorMessage, setErrorMessage ] = useState<string>("");
- 
-    const handleClick = async (event): Promise<void> => {
-       try {
-        event.preventDefault();
-        setResult(undefined);
-        setErrorMessage("");
-        setLoading(true);
-        const transactionValues = await getLastBurnTxHash(address);
-        const result = await isBurnTxClaimable(
-            rootChainProvider,
-            provider,
-            rootChainContractAddress,
-            transactionValues[0],
-            ERC20_TRANSFER_EVENT_SIG,
-        );
-        setLoading(false);
-        setResult(result);
-        setValue(USDCFormat(transactionValues[1]));
-       } catch(error) {
-         setErrorMessage(error.message);
-       }
-   
+    const [value, setValue] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
+
+    const handleClick = async (event: {
+        preventDefault: () => void;
+    }): Promise<void> => {
+        try {
+            event.preventDefault();
+            setIsTxClaimable(undefined);
+            setErrorMessage("");
+            setLoading(true);
+            const transactionValues = await getLastBurnTxHash(address);
+            const result = await isBurnTxClaimable(
+                rootChainProvider,
+                provider,
+                rootChainContractAddress,
+                transactionValues[0],
+                ERC20_TRANSFER_EVENT_SIG,
+            );
+            setLoading(false);
+            setIsTxClaimable(result);
+            setValue(USDCFormat(transactionValues[1]));
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
     };
     const displayMessage = (): JSX.Element => {
-        if (result === true) {
-            return <p className={styles.description}>Your withdrawal of {value} USDC is now available</p>;
+        if (isTxClaimable === true) {
+            return (
+                <p className={styles.description}>
+                    Your withdrawal of {value} USDC is now available
+                </p>
+            );
         }
-        if (result === false) {
-            return <p className={styles.description}>Your withdrawal of {value} USDC is not yet available or has been withdrawn</p>;
+        if (isTxClaimable === false) {
+            return (
+                <p className={styles.description}>
+                    Your withdrawal of {value} USDC is not yet available or has
+                    been withdrawn
+                </p>
+            );
         }
         return null;
     };
@@ -70,9 +81,7 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                             placeholder="Enter address"
                             className={styles.input}
                         />
-                        <div
-                            className={styles.grid}
-                        >
+                        <div className={styles.grid}>
                             <button
                                 onClick={handleClick}
                                 className={styles.button}
@@ -80,17 +89,12 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                                 Submit
                             </button>
                         </div>
-                        <div
-                            className={styles.grid}
-                        >
+                        <div className={styles.grid}>
                             {loading && <h5>Loading</h5>}
                             {displayMessage()}
                         </div>
-                        <div
-                            className={styles.grid}
-                        >
+                        <div className={styles.grid}>
                             {errorMessage && <h5>{errorMessage}</h5>}
-                         
                         </div>
                     </form>
                 </div>
