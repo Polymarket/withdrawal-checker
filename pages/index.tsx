@@ -11,7 +11,7 @@ import {
     rootChainProvider,
     provider,
 } from "../utils/constants";
-import PolymarketLogo from "../public/polymarket.svg"
+import PolymarketLogo from "../public/polymarket.svg";
 
 const CheckpointChecker: React.FC = (): JSX.Element => {
     const [address, setAddress] = useState<string>("");
