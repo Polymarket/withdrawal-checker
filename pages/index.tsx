@@ -11,6 +11,7 @@ import {
     rootChainProvider,
     provider,
 } from "../utils/constants";
+import PolymarketLogo from "../public/polymarket.svg"
 
 const CheckpointChecker: React.FC = (): JSX.Element => {
     const [address, setAddress] = useState<string>("");
@@ -69,6 +70,15 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                 <title>PM Withdrawal Checker</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <div className={styles.header}>
+            <div className={styles.content}>
+               
+                        <PolymarketLogo />
+                    
+            \
+                </div>
+                </div>
 
             <main className={styles.main}>
                 <h1 className={styles.title}>Withdrawal checkpoint checker</h1>

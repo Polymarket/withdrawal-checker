@@ -10,6 +10,7 @@
     "test": "jest --detectOpenHandles --watchAll=false --forceExit"
   },
   "dependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@tomfrench/matic-proofs": "0.1.0-alpha.20",
     "ethers": "^5.0.26",
     "merkle-patricia-tree": "^4.0.0",
