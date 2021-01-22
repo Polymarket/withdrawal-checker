@@ -14,7 +14,7 @@ export const getLastBurnTxHash = async (
     address: string,
 ): Promise<Array<string>> => {
     const toBlock = await provider.getBlockNumber();
-    const fromBlock = toBlock - 100000;
+    const fromBlock = toBlock - 500000;
 
     const logs: Array<any> = await provider.getLogs({
         fromBlock,

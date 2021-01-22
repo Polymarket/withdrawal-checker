@@ -42,6 +42,7 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
             setIsTxClaimable(result);
             setValue(USDCFormat(transactionValues[1]));
         } catch (error) {
+            setLoading(false);
             setErrorMessage(error.message);
         }
     };
@@ -76,20 +77,20 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                
                         <PolymarketLogo />
                     
-            \
+            
                 </div>
-                </div>
+            </div>
 
             <main className={styles.main}>
                 <h1 className={styles.title}>Withdrawal checkpoint checker</h1>
 
                 <div className={styles.grid}>
                     <form className={styles.form}>
-                        <input
+                        <input className={styles.input}
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="Enter address"
-                            className={styles.input}
+                           
                         />
                         <div className={styles.grid}>
                             <button

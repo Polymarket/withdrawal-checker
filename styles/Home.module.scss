@@ -152,7 +152,19 @@
 .logo {
   height: 1em;
 }
-
+.input {
+  box-sizing: border-box;
+cursor: default;
+display: block;
+font-family: Heebo, sans-serif;
+font-size: 16px;
+height: 47.4px;
+letter-spacing: -0.214085px;
+line-height: 21.712px;
+position: relative;
+text-size-adjust: 100%;
+width: 368px;
+}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
