@@ -73,11 +73,8 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
             </Head>
 
             <div className={styles.header}>
-            <div className={styles.content}>
-               
-                        <PolymarketLogo />
-                    
-            
+                <div className={styles.content}>
+                    <PolymarketLogo />
                 </div>
             </div>
 
@@ -86,11 +83,11 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
 
                 <div className={styles.grid}>
                     <form className={styles.form}>
-                        <input className={styles.input}
+                        <input
+                            className={styles.input}
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="Enter address"
-                           
                         />
                         <div className={styles.grid}>
                             <button
