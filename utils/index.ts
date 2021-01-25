@@ -37,13 +37,24 @@ export const getLastBurnTxHash = async (
 };
 
 /**
+ * Given a dollar amount, format it
+ * @param dollar 
+ */
+export const formatNumbers = (dollar: number | string): string => {
+    const amount = parseFloat(dollar as any);
+    const isValid = !Number.isNaN(amount) && Number.isFinite(amount);
+    const output = isValid
+        ? amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        : "0.00";
+    return output;
+};
+
+/**
  * @function USDCFormat - formats a USDC BigNumber string for display
  * @params {bigNUmberString} - string resulting from calling toString() on a BigNumber value retrieve from USDC contract
  * @returns {string} - the formated string
  */
 export const USDCFormat = (bigNumberString: string): string => {
-    const digits = bigNumberString.slice(0, -6);
-    const decimals = bigNumberString.slice(bigNumberString[1].length - 8, -1);
-    const digitsWithCommas = digits.replace(/(\d)(?=(\d{3})+$)/g, "$1,");
-    return `$${digitsWithCommas}.${decimals}`;
+    return `$${formatNumbers(ethers.utils.formatUnits(bigNumberString, 6))}`;
 };
+

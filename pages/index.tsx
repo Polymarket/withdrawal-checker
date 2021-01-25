@@ -79,8 +79,11 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
             </div>
 
             <main className={styles.main}>
-                <h1 className={styles.title}>Withdrawal checkpoint checker</h1>
-
+                <h2 className={styles.title}>Withdrawal checkpoint checker</h2>
+                <p>
+                    Insert your Polymarket Address, this tool will verify if
+                    your last withdrawal is ready to be claimed
+            </p>
                 <div className={styles.grid}>
                     <form className={styles.form}>
                         <input
