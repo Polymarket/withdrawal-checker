@@ -1,3 +1,12 @@
+# Polymarket Withdrawal Checker
+
+Given a Polymarket Address, fetches the latest burnhash and verifies if that hash has been checkpointed on Mainnet.
+
+
+Credits: 
+Code Cristian
+Review Alex
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
