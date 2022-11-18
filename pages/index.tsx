@@ -83,7 +83,7 @@ const CheckpointChecker: React.FC = (): JSX.Element => {
                 <p>
                     Insert your Polymarket Address, this tool will verify if
                     your last withdrawal is ready to be claimed
-            </p>
+                </p>
                 <div className={styles.grid}>
                     <form className={styles.form}>
                         <input

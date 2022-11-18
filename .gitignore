@@ -40,3 +40,4 @@ yarn-error.log*
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
 /.idea/withdrawal-checker.iml
+/.idea/jsLinters/eslint.xml

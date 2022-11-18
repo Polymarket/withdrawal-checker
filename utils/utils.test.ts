@@ -1,7 +1,4 @@
-
 import { USDCFormat } from ".";
-
-
 
 describe("USDCFormat", () => {
     test("should return a string of numbers formatted for display from a given number string", async function () {
@@ -10,4 +7,3 @@ describe("USDCFormat", () => {
         expect(USDCFormat(num)).toBe(displayNum);
     });
 });
-

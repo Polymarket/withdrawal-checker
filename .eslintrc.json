@@ -1,0 +1,57 @@
+{
+  "extends": [
+    "next",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/named": "off",
+    "react/destructuring-assignment": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/button-has-type": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/no-unescaped-entities": "off",
+    "react/require-default-props": "off",
+    "simple-import-sort/imports": "error",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@next/next/no-sync-scripts": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.graphql"
+      ],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": [
+        "@graphql-eslint"
+      ],
+      "rules": {
+        "@graphql-eslint/known-type-names": "error"
+      }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": [
+        "@graphql-eslint"
+      ],
+      "rules": {
+        "@graphql-eslint/known-type-names": "error"
+      }
+    }
+  ]
+}

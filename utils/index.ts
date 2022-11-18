@@ -38,7 +38,7 @@ export const getLastBurnTxHash = async (
 
 /**
  * Given a dollar amount, format it
- * @param dollar 
+ * @param dollar
  */
 export const formatNumbers = (dollar: number | string): string => {
     const amount = parseFloat(dollar as any);
@@ -57,4 +57,3 @@ export const formatNumbers = (dollar: number | string): string => {
 export const USDCFormat = (bigNumberString: string): string => {
     return `$${formatNumbers(ethers.utils.formatUnits(bigNumberString, 6))}`;
 };
-
