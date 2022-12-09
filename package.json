@@ -18,7 +18,7 @@
     "caniuse-lite": "^1.0.30001431",
     "ethers": "^5.0.26",
     "merkle-patricia-tree": "^4.0.0",
-    "next": "11.1.0",
+    "next": "11.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.1",
     "sass": "^1.32.5",
